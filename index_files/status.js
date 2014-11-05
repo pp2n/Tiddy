@@ -1,2 +1,0 @@
-var tiddlyweb = tiddlyweb || {};
-tiddlyweb.status = {"username": "GUEST", "tiddlyspace_version": "1.2.26", "space": {"recipe": "tiddlywiki_public", "name": "tiddlywiki"}, "challengers": ["tiddlywebplugins.tiddlyspace.cookie_form", "tiddlywebplugins.tiddlyspace.openid"], "server_host": {"host": "tiddlyspace.com", "scheme": "http", "port": "80"}, "version": "1.4.18"};
