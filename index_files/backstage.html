@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)http://tiddlywiki.org/bags/common/tiddlers/backstage#userpass-login -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="http://tiddlywiki.org/bags/common/tiddlers/normalize.css">
+<link rel="stylesheet" href="http://tiddlywiki.org/bags/common/tiddlers/app.css">
+<style id="vksstyle007" type="text/css">[id^="ya_partner"] > *, ins[id^="aswift"] > *, [src*="ad.adriver.ru"] { visibility: hidden;}</style><style type="text/css"></style></head>
+<body class="tsbackstage ts-nonmember">
+<div class="logindetails">
+	<form class="ts-login login login-method" action="" autocomplete="off" id="userpass-login" prc_adsf="true">
+	<p>login via <a class="toggle-form" href="http://tiddlywiki.org/bags/common/tiddlers/backstage#openid-login">openid</a></p>
+	<input autocapitalize="off" autocorrect="off" type="text" name="username" placeholder="username">
+	<input autocapitalize="off" autocorrect="off" type="password" name="password" placeholder="password"> 
+	<input type="hidden" name="redirect" value="/bags/common/tiddlers/backstage?action=login#refreshParent">
+	<input type="submit" class="btn btn-action" value="Log In">
+<input type="hidden" name="csrf_token" value=""></form>
+<form class="ts-openidlogin login-method login-method-hide" id="openid-login" method="post" action="http://tiddlywiki.org/challenge/tiddlywebplugins.tiddlyspace.openid" prc_adsf="true">
+	<p>login with <a class="toggle-form" href="backstage.html">username and password</a></p>
+	<input name="tiddlyweb_redirect" type="hidden" value="/bags/common/tiddlers/backstage">
+	<input class="openid" autocapitalize="off" autocorrect="off" type="text" name="openid" placeholder="your openid">
+	<input class="button btn btn-action" type="submit" value="Sign In">
+	<a class="openid-help" href="http://openid.net/get-an-openid/">What is an open id?</a>
+</form>
+
+</div>
+<div><ul id="app-list">
+        <li class="search">
+                <form method="GET" target="_blank" action="http://tiddlywiki.org/hsearch" prc_adsf="true">
+                <img src="search.png" alt="Search Icon" class="app-img">
+                <input type="text" name="q" placeholder="Search">
+                
+        </form></li>
+	<li class="help">
+		<a href="http://help.tiddlyspace.com/" target="_blank">
+			<img src="help.png" alt="Help SiteIcon" class="app-img">Help
+		</a>
+	</li>
+	<li class="space">
+		<a href="http://tiddlywiki.org/_space" target="_blank">
+			<img src="SiteIcon(1)" alt="Space SiteIcon" class="app-img">This space
+		</a>
+	</li>
+</ul></div>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="chrjs"></script>
+<script type="text/javascript" src="chrjs.users"></script>
+<script type="text/javascript" src="chrjs.space"></script>
+<script type="text/javascript" src="chrjs.identities"></script>
+<script type="text/javascript" src="ts.js"></script>
+<script src="status.js"></script>
+<script type="text/javascript">
+	if(window.location.hash === "#refreshParent") {
+		window.location.hash = "";
+		window.parent.location.reload();
+	}
+	var li, siteiconurl, link, host;
+	ts.init(function(ts) {
+		host = ts.getHost(ts.user.name);
+		$(document.body).show();
+		window.location.hash = "#userpass-login";
+		if (ts.user.anon) {
+			$('.toggle-form').click(function(ev) {
+				$(this).closest('form').addClass('login-method-hide')
+					.siblings('form').removeClass('login-method-hide');
+				ev.preventDefault();
+			});
+		}
+		if ($(document.body).hasClass('ts-nonmember')) {
+			$('.write').remove();
+		}
+		if(!ts.user.anon) {
+			li = $('<li class="account" />').appendTo("#app-list")[0];
+			siteiconurl = host + '/bags/' + ts.user.name + '_public/tiddlers/SiteIcon';
+			link = $('<a target="_blank" />').attr("href", host + "/_account").
+				text("Your account").appendTo(li);
+			$('<img class="app-img">').attr("alt",  'SiteIcon for ' + ts.user.name).
+				attr("src", siteiconurl).prependTo(link);
+		}
+	}, {});
+	(function($) {
+		$(function() {
+			// send doc height to parent window
+			var totalHeight = $("html").height();
+			if(self !== top && !!window.postMessage) {
+				parent.postMessage(totalHeight, "*");
+			}
+		});
+	}(jQuery));
+</script>
+
+</body></html>
